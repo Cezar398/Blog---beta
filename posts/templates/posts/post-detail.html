@@ -1,0 +1,22 @@
+{% extends 'posts/base.html' %}
+{% block content %}
+{% load static %}
+    <div class="article-clean">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-xl-8 offset-lg-1 offset-xl-2">
+                    <div class="intro">
+                        <h1 class="text-center">{{post.title}}</h1>
+                        <p class="text-center"><span class="by">by</span> <a href="#">{{post.author}}</a><span class="date">{{post.post_date}}</span></p>
+                        <img class="" style="display: block; margin-left: auto; margin-right: auto; width: 75%" src="{{post.thumb_image.url}}"></div>
+                    <div class="text">
+                        {{post.content|safe}}
+                    </div>
+                    {% if user.is_staff or post.author == user %}
+                    <a href="{% url 'posts:post-update' post.pk %}" class="btn btn-warning">Update</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

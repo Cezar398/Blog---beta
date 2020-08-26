@@ -1,0 +1,14 @@
+{% extends 'posts/base.html' %}
+{% block content %}
+{% load rest_framework %}
+<div class="contact-clean">
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+          <h2 class="text-center">New post</h2>
+        {% render_form serializer %}
+        <textarea id="mytextarea" name="content" placeholder="Your content..."></textarea>
+        <div class="form-group"><button class="btn btn-primary" type="submit">Send</button></div>
+    </form>
+</div>
+{% endblock content %}
