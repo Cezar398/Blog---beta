@@ -12,7 +12,6 @@ pip install django
 pip install djangorestframework
 #after
 pip install django-throttle
-#after
 ```
 
 ## License
