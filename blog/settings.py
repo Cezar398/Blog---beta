@@ -148,6 +148,7 @@ REST_FRAMEWORK = {
 
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
+        'posts.permissions.IsOwnerOrAdmin',
     ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -177,7 +178,7 @@ THROTTLE_REDIS_AUTH = 'pass'
 # Normally, throttling is disabled when DEBUG=True. Use this to force it to enabled.
 THROTTLE_ENABLED = True
 
-DJANGO_WYSIWYG_FLAVOR = "Redactor"
+#DJANGO_WYSIWYG_FLAVOR = "Redactor"
 
 MEDIA_ROOT_URL = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'

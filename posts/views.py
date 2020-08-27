@@ -13,6 +13,7 @@ from django.utils.decorators import method_decorator
 
 from posts import models as post_models
 from posts import serializers
+from posts import permissions as custom_permissions
 from home import models as home_models
 
 class PostDetailView(APIView):
@@ -27,7 +28,7 @@ class PostDetailView(APIView):
 class PostCreateView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'posts/post-create.html'
-
+    permissions_classes = [permissions.IsAuthenticatedOrReadOnly]
     def get(self, request, format=None):
         serializer = serializers.NewPostSerializer()
         return Response({'serializer': serializer})
@@ -45,10 +46,11 @@ class PostCreateView(APIView):
 class PostUpdateView(APIView):
     renderer_classes = [TemplateHTMLRenderer]
     template_name = 'posts/post-update.html'
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated, custom_permissions.IsOwnerOrAdmin]
 
     def get(self, request, pk, format=None):
         post = post_models.Post.objects.get(pk=pk)
+        self.check_object_permissions(self.request, post)
         serializer = serializers.NewPostSerializer(instance=post)
         return Response({'serializer': serializer, 'content': post.content})
 
