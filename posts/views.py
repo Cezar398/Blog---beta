@@ -56,9 +56,25 @@ class PostUpdateView(APIView):
 
     def post(self, request, pk, format=None):
         post = post_models.Post.objects.get(pk=pk)
+        self.check_object_permissions(self.request, post)
         serializer = serializers.NewPostSerializer(data=request.data, instance=post)
         content = request.POST.get('content')
         if serializer.is_valid():
             serializer.save(content=content)
             return redirect('posts:post-detail', pk=pk)
         raise Http404
+
+class PostDeleteView(APIView):
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'posts/post-delete.html'
+    permission_classes = [permissions.IsAuthenticated, custom_permissions.IsOwnerOrAdmin]
+
+    def get(self, request, pk, format=None):
+        post = post_models.Post.objects.get(pk=pk)
+        self.check_object_permissions(self.request, post)
+        return Response({'post': post})
+
+    def post(self, request, pk, format=None):
+        post = post_models.Post.objects.get(pk=pk)
+        post.delete()
+        return redirect('home:home')

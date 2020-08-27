@@ -1,0 +1,22 @@
+{% extends 'posts/base.html' %}
+{% block content %}
+{% load rest_framework %}
+<div class="contact-clean">
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+          <h2 class="text-center">Delete post</h2>
+        <div class="jumbotron">
+          <p class="text">Title: {{progresst.title}}</p>
+          <p class="text">Author: {{post.author}}</p>
+          <p class="text">Description: {{post.description}}</p>
+          <div class="" style="background-color: #666; color: white">
+          <p class="text">Content: {{post.content|safe}}</p>
+          </div>
+          <p class="text">Post date: {{post.post_date}}</p>
+          <p class="text">ID: {{post.id}}</p>
+        </div>
+        <div class="form-group"><button class="btn btn-primary" type="submit">Delete</button></div>
+    </form>
+</div>
+{% endblock content %}
