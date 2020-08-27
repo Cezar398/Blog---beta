@@ -14,7 +14,7 @@ pip install djangorestframework
 pip install django-throttle
 ```
 ##Redis
-Install redis (https://redis.io/download)
+Install [redis](https://redis.io/download)
 
 
 ## License
