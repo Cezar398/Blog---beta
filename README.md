@@ -13,6 +13,8 @@ pip install djangorestframework
 #after
 pip install django-throttle
 ```
+###Redis
+
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
